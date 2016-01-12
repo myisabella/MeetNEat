@@ -54,6 +54,76 @@ class User(Base):
             'picture': self.picture
         }
 
+class Request(Base):
+    __tablename__ = 'request'
+    id = Column(Integer, primary_key = True)
+    mealType = Column(String)
+    location = Column(String)
+    latitude = Column(Float)
+    longitude = Column(Float)
+    mealTime = Column(String)
+    filled = Column(Boolean)
+    user = relationship(User)
+    user_id = Column(Integer, ForeignKey('user.id'))
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'id': self.id,
+            'meal type': self.mealType,
+            'location': self.location,
+            'latitude': self.latitude,
+            'longitude': self.longitude,
+            'meal time': self.mealTime,
+            'filled': self.filled,
+            'user id': self.user_id
+        }
+
+class Proposal(Base):
+    __tablename__ = 'proposal'
+    id = Column(Integer, primary_key = True)
+    user_proposed_to = Column(Integer)
+    user_proposed_from = Column(Integer)
+    request = relationship(Request)
+    request_id = Column(Integer, ForeignKey('request.id'))
+    filled = Column(Boolean)
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'id': self.id,
+            'user proposed to': self.user_proposed_to,
+            'user proposed from': self.user_proposed_from,
+            'request id': self.request_id,
+            'filled': self.filled
+        }
+
+class MealDate(Base):
+    __tablename__ = 'mealdate'
+    id = Column(Integer, primary_key = True)
+    user_1 = Column(Integer)
+    user_2 = Column(Integer)
+    restaurant_name = Column(String)
+    restaurant_address = Column(String)
+    restaurant_picture = Column(String)
+    mealTime = Column(String)
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'id': self.id,
+            'user 1': self.user_1,
+            'user 2': self.user_2,
+            'restaurant_name': self.restaurant_name,
+            'restaurant_address': self.restaurant_address,
+            'restaurant_picture': self.restaurant_picture,
+            'meal time': self.mealType
+        }
+
+
 engine = create_engine('sqlite:///meetneat.db')
 
 Base.metadata.create_all(engine)
