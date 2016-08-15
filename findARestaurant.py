@@ -8,9 +8,9 @@ sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 sys.stderr = codecs.getwriter('utf8')(sys.stderr)
 
 # TODO: need to store them in another file
-google_api_key = "AIzaSyB46S6ZFdQ1rrS7G3lHAZjthT3fmh_VC_Q"
-foursquare_client_id = "V1VILC24KJ4RUO250BDNFS5VNYM4J2GUCTXNQN3WC3MXGFWT"
-foursquare_client_secret = "KE31BCE0B5JH1SLKGTSMNTT3X4M4YWQZZUZILMJFSOXFDOGT"
+google_api_key = "******************************"
+foursquare_client_id = "****************************"
+foursquare_client_secret = "******************************"
 
 def getGeocodeLocation(inputString):
     locationString = inputString(" ", "+")
